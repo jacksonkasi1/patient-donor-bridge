@@ -4,49 +4,63 @@ This document outlines the UI development tasks for the BloodConnect application
 
 **Core Concept:** Virtual AI patients with realistic voices (ElevenLabs v3) have personal conversations with donors to create emotional connections that motivate real-world blood donations.
 
+**Design Inspiration:** Following **Globos Voice-First Social Media Application** design principles - ultra-minimalist, clean, voice-first interface with large circular profiles and tiny status indicators.
+
+**MOBILE-ONLY DESIGN:** This application supports **mobile view only** with a maximum width of **480px**. No desktop or tablet responsive design required - the screen will not expand beyond mobile dimensions.
+
+**UI LIBRARY:** Uses **shadcn/ui exclusively** - no custom UI components or other UI libraries allowed. All components must use shadcn/ui with Tailwind CSS styling.
+
+## **Design System Reference**
+📋 **See `DESIGN_SYSTEM.md` for complete design specifications, component layouts, and styling guidelines.**
+
 ## High Priority: Core Screens & Patient Flow
 
 -   [ ] **Home/Dashboard Screen (`/`)**
-    -   [ ] Create the main dashboard layout with patient overview.
-    -   [ ] **Patient Cards with Urgency Status:**
-        -   [ ] Display patient cards with urgency indicators (green, yellow, red colors).
-        -   [ ] Add bell icon for urgent notifications.
-        -   [ ] Show patient name, blood type, and urgency level.
-    -   [ ] **Quick Stats:** Display donation statistics and impact metrics.
-    -   [ ] Implement the bottom navigation bar (`BottomNavBar`).
+    -   [ ] Create minimalist dashboard layout following Globos design principles.
+    -   [ ] **AI Patient Grid (shadcn/ui + Globos-style):**
+        -   [ ] 3-column grid layout (mobile-only design, max-width: 480px)
+        -   [ ] Use shadcn/ui **Avatar** component for profile images (120px diameter)
+        -   [ ] Use shadcn/ui **Badge** component for status indicators (12px)
+        -   [ ] Patient names with shadcn/ui typography (16px, medium weight)
+        -   [ ] Status colors: 🔴 Critical, 🟡 Moderate, 🟢 Stable
+        -   [ ] Lucide React bell icon overlay for highest priority cases
+    -   [ ] **Ultra-clean layout:** Abundant white space, no visual clutter
+    -   [ ] **Minimal navigation:** Voice-first approach with large touch targets
 
 -   [ ] **AI Patient List Screen (`/patients`)**
-    -   [ ] Create a list item component for each AI patient (`PatientCard`).
-    -   [ ] Display AI-generated patients with name, blood type, urgency status colors, and "Connect" button.
-    -   [ ] **Urgency Visual Indicators:**
-        -   [ ] Red: Critical/Urgent AI patients
-        -   [ ] Yellow: Moderate urgency
-        -   [ ] Green: Stable/Less urgent
-        -   [ ] Bell icon for high-priority cases
-    -   [ ] **AI Patient Authenticity Indicators:**
-        -   [ ] Realistic profile photos (AI-generated)
-        -   [ ] Personality hints or conversation previews
-    -   [ ] Implement the bottom navigation bar (`BottomNavBar`).
-    -   [ ] Style based on `Stitch Design.png`.
+    -   [ ] **shadcn/ui Grid Layout:**
+        -   [ ] Use shadcn/ui **Card** component for patient containers
+        -   [ ] Use shadcn/ui **Avatar** component for profile images (120px)
+        -   [ ] Use shadcn/ui **Badge** component for status indicators (12px)
+        -   [ ] Clean typography: patient names with shadcn/ui text styles (16px, medium)
+        -   [ ] Equal spacing between cards (16px gaps)
+        -   [ ] Fixed 3-column grid (mobile-only, max-width: 480px)
+    -   [ ] **Minimalist Status System:**
+        -   [ ] 🔴 Red circle: Critical/Urgent patients  
+        -   [ ] 🟡 Yellow circle: Moderate urgency
+        -   [ ] 🟢 Green circle: Stable patients
+        -   [ ] Bell icon overlay for emergencies
+    -   [ ] **Voice-First Interaction:**
+        -   [ ] Use shadcn/ui **Button** component for "Talk to [Name]" actions
+        -   [ ] Minimal text, maximum visual clarity
+        -   [ ] Gesture-based navigation where possible
 
 -   [ ] **AI Patient Profile Screen (`/patients/[id]`)**
-    -   [ ] Create the main layout for the AI patient profile page.
-    -   [ ] **Profile Header:** Display AI patient's photo, name, blood type, age, and urgency status.
-    -   [ ] **Compatibility Section:**
-        -   [ ] Add the blood bag graphic.
-        -   [ ] List compatible blood types with clear visual indicators.
-    -   [ ] **AI Patient Timeline Section:**
-        -   [ ] Create timeline component for AI-generated medical events (Diagnosis, Treatment Start, etc.).
-        -   [ ] Display timeline with icons, dates, and status indicators.
-    -   [ ] **AI Patient Story Section:** 
-        -   [ ] Display AI-generated personal narrative and backstory.
-        -   [ ] Show conversation preview or personality traits.
-        -   [ ] Highlight emotional connection points.
-    -   [ ] **Action Buttons:**
-        -   [ ] "Talk to [Patient Name]" button - prominent call-to-action for voice conversation.
-        -   [ ] "Donate Now" button - after conversation CTA.
-    -   [ ] Integrate the `BottomNavBar`.
-    -   [ ] Style based on `Stitch Design-1.png`.
+    -   [ ] **Globos-Style Profile Layout:**
+        -   [ ] Extra-large circular profile image (200px) centered at top
+        -   [ ] Status circle (16px) at bottom-right of main profile
+        -   [ ] Patient name below image (24px, medium weight)
+        -   [ ] Minimal information display - only essentials
+    -   [ ] **Clean Information Hierarchy:**
+        -   [ ] Blood type and urgency status prominently displayed
+        -   [ ] AI-generated story in clean, readable format
+        -   [ ] Personality hints subtly integrated
+        -   [ ] No visual clutter - generous white space
+    -   [ ] **Voice-First Action Button:**
+        -   [ ] Use shadcn/ui **Button** component for "Talk to [Patient Name]" (80px height)
+        -   [ ] Primary action - voice conversation
+        -   [ ] Use shadcn/ui **Button** component for "Donate Now" secondary action
+        -   [ ] Consistent with Globos interaction patterns
 
 ## High Priority: Donation Flow
 
@@ -85,27 +99,36 @@ This document outlines the UI development tasks for the BloodConnect application
 ## Medium Priority: Communication & Navigation
 
 -   [ ] **AI Voice Conversation Screen (`/call/[patientId]`)**
-    -   [ ] Display avatars for AI patient and donor.
-    -   [ ] Show "Connecting to [Patient Name]..." status with loading animation.
-    -   [ ] **AI Conversation Controls:**
-        -   [ ] "Mute" and "End Call" buttons.
-        -   [ ] Real-time conversation transcript display (optional).
-        -   [ ] Emotional indicators showing AI patient's current mood/tone.
-    -   [ ] **ElevenLabs v3 Integration UI:**
-        -   [ ] Voice quality indicator.
-        -   [ ] Speaking/listening visual feedback.
-    -   [ ] **Post-Conversation UI:**
-        -   [ ] Thank you message from AI patient.
-        -   [ ] Smooth transition to donation booking.
-    -   [ ] Style based on `Stitch Design-3.png`.
+    -   [ ] **Globos Voice-First Interface:**
+        -   [ ] Large patient profile image (200px) centered at top
+        -   [ ] Active status indicator (16px green circle) during conversation  
+        -   [ ] "Connecting to [Patient Name]..." status text
+        -   [ ] Ultra-clean layout with abundant white space
+    -   [ ] **Minimalist Voice Controls:**
+        -   [ ] Large circular microphone button (80px) - primary action
+        -   [ ] Smaller end call button (60px) - red circular icon
+        -   [ ] Mute button (60px) - circular with visual feedback
+        -   [ ] Pulsing animation on active microphone
+    -   [ ] **Visual Voice Feedback:**
+        -   [ ] Speaking/listening states with color changes
+        -   [ ] Subtle animations for voice activity
+        -   [ ] Clean status indicators (no complex UI)
+    -   [ ] **ElevenLabs v3 Integration:**
+        -   [ ] Real-time audio streaming interface
+        -   [ ] Voice quality indicators
+        -   [ ] Smooth conversation flow management
 
 -   [ ] **AI Chat/Messaging Screen (`/chat/[patientId]`)**
-    -   [ ] Create messaging interface for AI patient-donor communication.
-    -   [ ] Display message history with AI-generated responses.
-    -   [ ] **AI Conversation Features:**
-        -   [ ] Typing indicators with realistic AI response timing.
-        -   [ ] Quick response options and emoji support.
-        -   [ ] Voice message option to hear AI patient's voice (ElevenLabs).
+    -   [ ] **Globos-Inspired Chat Interface:**
+        -   [ ] Clean, minimal message bubbles with generous spacing
+        -   [ ] Patient profile circle (40px) next to messages
+        -   [ ] Ultra-simple typography and layout
+        -   [ ] Voice-first approach with large voice message buttons
+    -   [ ] **Minimalist Message Design:**
+        -   [ ] Simple message bubbles without complex styling
+        -   [ ] Clear typography (14px regular weight)
+        -   [ ] Adequate white space between messages
+        -   [ ] Typing indicators with clean animation
 
 -   [ ] **Navigation Flow & Routing**
     -   [ ] Connect Home screen to AI Patient List and Profile screens.
