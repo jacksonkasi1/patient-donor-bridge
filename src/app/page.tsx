@@ -1,3 +1,6 @@
+"use client"
+
+import { useRouter } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserProfile } from "@/components/user-profile";
 import { Badge } from "@/components/ui/badge";
@@ -118,6 +121,12 @@ const getStatusColor = (status: string) => {
 };
 
 export default function Home() {
+  const router = useRouter()
+
+  const handlePatientClick = (patientId: number) => {
+    router.push(`/patients/${patientId}`)
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header - Clean and minimal */}
@@ -135,7 +144,11 @@ export default function Home() {
       <main className="px-6 py-8">
         <div className="grid grid-cols-3 gap-6">
           {patients.map((patient) => (
-            <div key={patient.id} className="flex flex-col items-center space-y-2">
+            <div 
+              key={patient.id} 
+              className="flex flex-col items-center space-y-2 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => handlePatientClick(patient.id)}
+            >
               {/* Large Circular Profile Image - 120px as per design system */}
               <div className="relative">
                 <Avatar className="h-[120px] w-[120px] border-2 border-border">
